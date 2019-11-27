@@ -1,0 +1,481 @@
+#+TITLE: Quantitative Methods
+#+PROPERTY: header-args:R :session acj :eval never-export
+#+STARTUP: hideall inlineimages hideblocks
+
+* Title slide                                                         :slide:
+#+BEGIN_SRC emacs-lisp-slide
+(org-show-animate '("Quantitative Methods, Part-II" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+#+END_SRC
+* Lecture plan
+** Descriptive Statistics [1 day]
+*** Measures of central tendency
+*** Dispersion
+*** Making  Data Meaningful
+**** Cross-tabulations
+**** Data visualisation
+** Probability and Inference [2 days]
+*** Probability/Relevance to statistics
+*** Sampling distributions
+*** Hypothesis testing
+** Correlations and Regression [1 day]
+** All afternoons will be used for workshops
+
+* Day 1
+** Title slide
+#+BEGIN_SRC emacs-lisp-slide
+(org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
+#+END_SRC
+
+**  What do we aim to achieve in this course?                        :slide:
+**** Make friends with numbers
+**** Learn how to read numbers, how to present them, and how to write about them
+**** Learn how to use computers to work with numbers
+** Two Types of Statistics                                           :slide:
+*** Descriptive Statistics
+**** Use summaries of data for the entire population to describe a population
+**** Use summaries of sample data to describe a sample
+*** Inferential Statistics
+**** Use sample data to describe a population
+** Descriptive Statistics                                            :slide:
+
++ Frequency
++ Measures of central tendency
++ Summary positions
++ Measures of dispersion
+
+*** Frequency                                                       :slide:
+
+#+NAME: worker-code0
+#+begin_src R :results value :export results :colnames yes :hline
+      library(data.table)
+      data.table(names=c("Anil","Neeraj","Savita","Srimati",
+                         "Rekha","Pooja","Alex","Shahina",
+                         "Ghazal","Lakshmi","Rahul","Shahrukh",
+                         "Naman","Deepak","Shreya","Rukhsana"
+                         ),
+                 salary=c(71,50,65,40,
+                          45,42,46,43,
+                          45,43,45,45,
+                          850,100,46,48
+                          )*1000,
+                 sex=c("M","M","F","F",
+                       "F","F","M","F",
+                       "F","F","M","M",
+                       "M","M","F","F"
+                       ))->workers
+      workers$sno<-c(1:nrow(workers))
+      workers[,.(sno,names,sex,salary)]
+#+end_src
+
+#+RESULTS: worker-code0
+| sno | names    | sex | salary |
+|-----+----------+-----+--------|
+|   1 | Anil     | M   |  71000 |
+|   2 | Neeraj   | M   |  50000 |
+|   3 | Savita   | F   |  65000 |
+|   4 | Srimati  | F   |  40000 |
+|   5 | Rekha    | F   |  45000 |
+|   6 | Pooja    | F   |  42000 |
+|   7 | Alex     | M   |  46000 |
+|   8 | Shahina  | F   |  43000 |
+|   9 | Ghazal   | F   |  45000 |
+|  10 | Lakshmi  | F   |  43000 |
+|  11 | Rahul    | M   |  45000 |
+|  12 | Shahrukh | M   |  45000 |
+|  13 | Naman    | M   | 850000 |
+|  14 | Deepak   | M   |  1e+05 |
+|  15 | Shreya   | F   |  46000 |
+|  16 | Rukhsana | F   |  48000 |
+
+#+NAME: freq-code
+
+#+begin_src R :results value :export results :colnames yes :hline
+  workers[,.(frequency=length(sno)),.(sex)]
+#+end_src
+
+#+RESULTS:
+| sex | frequency |
+|-----+-----------|
+| M   |         7 |
+| F   |         9 |
+
+#+RESULTS: freq-code
+| sex | frequency |
+|-----+-----------|
+| M   |         7 |
+| F   |         9 |
+
+*** Measures of Central Tendency                                    :slide:
+
+#+NAME: mid-code
+#+begin_src R :results value :export results :colnames yes :hline
+  workers[,.(mean_salary=round(mean(salary),1),
+              median_salary=quantile(salary,prob=0.5))]
+#+end_src
+
+#+RESULTS: mid-code
+| mean_salary | median_salary |
+|-------------+---------------|
+|      101500 |         45500 |
+
+#+NAME: mid2-code
+#+begin_src R :results value :export results :colnames yes :hline
+  workers[,.(mean_salary=round(mean(salary),1),
+             median_salary=quantile(salary,prob=0.5)),.(sex)]
+#+end_src
+
+#+RESULTS: mid2-code
+| sex | mean_salary | median_salary |
+|-----+-------------+---------------|
+| M   |    172428.6 |         50000 |
+| F   |     46333.3 |         45000 |
+
+*** Measures of Position                                            :slide:
+
++ First quartile
++ Second quartile (median)
++ Third quartile
+
++ Deciles
++ Quintiles
++ Percentiles
+
+*** Measures of Dispersion                                          :slide:
+
+**** Range and other measures based on positions                   :slide:
+
+
+$range=max-min$
+
+#+RESULTS: range-code
+| min_salary | max_salary |  range |
+|------------+------------+--------|
+|      40000 |     850000 | 810000 |
+
+#+NAME: range-code
+#+begin_src R :results value :export results :colnames yes :hline
+    workers[,.(min_salary=min(salary),
+                max_salary=max(salary),
+                range=max(salary)-min(salary))]
+#+end_src
+
+**** Range and other measures based on positions                   :slide:
+
++ Distance between any two positions (Deciles, Quintiles, Percentiles) can be used as a measure of dispersion.
+
+$inter.quartile.range=Q3-Q1$
+
+#+RESULTS: summary-code
+#+begin_example
+  25%   75% 
+44500 53750
+  10%   90% 
+42500 85500
+   10%    95% 
+ 42500 287500
+   25%    95% 
+ 44500 287500
+   0%   75% 
+40000 53750
+#+end_example
+
+#+NAME: summary-code
+#+begin_src R :results output :export results :colnames yes :hline
+##  summary(workers$salary)
+  quantile(workers$salary,probs=c(0.25,0.75))
+  quantile(workers$salary,probs=c(0.1,0.9))
+  quantile(workers$salary,probs=c(0.1,0.95))
+  quantile(workers$salary,probs=c(0.25,0.95))
+  quantile(workers$salary,probs=c(0,0.75))
+#+end_src
+
+
+
+**** Variance, Standard Deviation and Coefficient of Variation
+
+$variance=\frac{1}{n} \times \sum(x_{i}-x)^{2}$
+
+$standard.deviation = \sqrt{variance}$
+
+$cov=\frac{standard.deviation}{mean}$
+
+#+NAME: var-code
+#+begin_src R :results value :export results :colnames yes :hline
+  workers[,.(var_salary=round(var(salary),1),
+             sd_salary=round(sqrt(var(salary)),1),
+             cov_salary=round(sqrt(var(salary))/mean(salary),2))
+          ]
+#+end_src
+
+#+RESULTS: var-code
+|  var_salary | sd_salary | cov_salary |
+|-------------+-----------+------------|
+| 40075200000 |  200187.9 |       1.97 |
+
+#+NAME: var2-code
+#+begin_src R :results value :export results :colnames yes :hline
+    students[,.(var_salary=round(var(salary),1),
+                sd_salary=round(sqrt(var(salary)),1),
+                cov_salary=round(sqrt(var(salary))/mean(salary),2)),.(sex)]
+#+end_src
+
+#+RESULTS: var2-code
+| sex |  var_salary | sd_salary | cov_salary |
+|-----+-------------+-----------+------------|
+| M   | 89680952381 |  299467.8 |       1.74 |
+| F   |    54500000 |    7382.4 |       0.16 |
+
+
+
+** Graphical Displays of Quantitative Information: Common Pitfalls
+
+*** Common uses of statistical graphics                             :slide:
++ To show trends over time
++ To show mid-point variations across categories
++ To show composition
++ (less commonly, though more usefully) to show/analyse dispersion
+
+*** Mis-representation                                              :slide:
+
+#+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
+[[file:graphics/tufte-insanity.png]]
+
+*** Mis-representation                                              :slide:
+
+#+CAPTION: Another example borrowed from Tufte
+[[file:graphics/tufte-fuel.png]]
+
+*** Mis-representation                                              :slide:
+
+#+CAPTION: Tufte's graph on fuel economy of cars
+#+attr_html: :width 400px
+[[file:graphics/tufte-fuel2.png]]
+
+*** Mis-representation                                              :slide:
+
+#+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
+#+attr_html: :width 300px
+[[file:graphics/nobel-wrong.png]]
+
+*** Mis-representation                                              :slide:
+
+#+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
+#+attr_html: :width 300px
+[[file:graphics/nobel-right.png]]
+
+*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty1_o.png]]
+
+*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty1_c.png]]
+
+*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty2_o.png]]
+
+*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty2_c.png]]
+
+*** The problem multiplied with the coming in of spreadsheets       :slide:
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart1.png]]
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart2.png]]
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart3.png]]
+
+** Graphical Displays of Quantitative Information: Dispersion        :slide:
+*** Histogram                                                       :slide:
+
+#+RESULTS: ccpc-wheat-hist1
+#+attr_html: :width 800px
+[[file:productionhist1.png]]
+
+#+NAME: ccpc-wheat-hist1
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist1.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
+#+END_SRC
+
+*** Histogram with smaller bins
+
+#+RESULTS: ccpc-wheat-hist11
+[[file:productionhist11.png]]
+
+#+NAME: ccpc-wheat-hist11
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist11.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,main="Histogram of wheat yields",breaks=seq(0,25000,250),ylim=c(0,4000))
+#+END_SRC
+
+*** Histogram with smaller bins
+
+#+RESULTS: ccpc-wheat-hist12
+[[file:productionhist12.png]]
+
+#+NAME: ccpc-wheat-hist12
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist12.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,main="Histogram of wheat yields",breaks=seq(0,25000,250))
+#+END_SRC
+
+*** Histogram (absolute frequencies) with unequal bins distorts the shape
+#+NAME: ccpc-wheat-hist3
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist3.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,freq=T,main="Histogram of wheat yields",breaks=c(0,1000,1500,2000,2200,2500,3000,3200,3400,3800,4000,5000,10000,21000))
+#+END_SRC
+
+#+RESULTS: ccpc-wheat-hist3
+[[file:productionhist3.png]]
+
+*** Histogram with relative densities                               :slide:
+
+#+RESULTS: ccpc-wheat-hist2
+#+attr_html: :width 600px
+[[file:productionhist2.png]]
+
+#+NAME: ccpc-wheat-hist2
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist2.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20)->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
+#+END_SRC
+
+*** Histogram with relative densities
+
+#+RESULTS: ccpc-wheat-hist21
+[[file:productionhist21.png]]
+
+#+NAME: ccpc-wheat-hist21
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist21.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20)->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,freq=F,main="Histogram of wheat yields",breaks=seq(0,25000,250),ylim=c(0,0.00040))
+#+END_SRC
+
+*** Histogram with unequal bins must use relative densities
+
+#+RESULTS: ccpc-wheat-hist4
+[[file:productionhist4.png]]
+
+#+NAME: ccpc-wheat-hist4
+#+BEGIN_SRC R :results output graphics :exports results :file productionhist4.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  hist(b$yield,freq=F,main="Histogram of wheat yields",breaks=c(0,1000,1500,2000,2200,2500,3000,3200,3400,3800,4000,5000,10000,21000),ylim=c(0,0.00040))
+#+END_SRC
+
+*** Boxplot                                                         :slide:
+
+**** Invented by John Tukey in 1970
+**** Many variations proposed since then, though the essential form and idea as remained intact.
+
+
+
+*** Boxplot of wheat yields                                         :slide:
+
+#+RESULTS: ccpc-wheat-box1
+[[file:boxplotyield1.png]]
+
+#+NAME: ccpc-wheat-box1
+#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield1.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  boxplot(b$yield,main="Boxplot of wheat yields")
+#+END_SRC
+
+*** Violin plots                                                    :slide:
+
+#+RESULTS: ccpc-wheat-vio1
+[[file:vioplotyield1.png]]
+
+#+NAME: ccpc-wheat-vio1
+#+BEGIN_SRC R :results output graphics :exports results :file vioplotyield1.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  library(vioplot)
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  vioplot(b$yield)
+#+END_SRC
+
+
+
+
+*** Boxplots: Useful to identify extreme values                     :slide:
+
+
+#+RESULTS: ccpc-wheat-box2
+[[file:boxplotyield2.png]]
+#+NAME: ccpc-wheat-box2
+#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield2.png :width 400 :height 300  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% 20 )->b
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+  boxplot(b$yield,main="Magnified tail of the boxplot",ylim=c(7000,25000))
+#+END_SRC
+
+*** Boxplots: Useful for comparisons across categories              :slide:
+
+#+RESULTS: ccpc-crop-box3
+[[file:boxplotyield3.png]]
+#+NAME: ccpc-crop-box3
+#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield3.png :width 400 :height 280  :type cairo :family Garamond
+    subset(ccpc,Year_Agriculture==2009)->b
+    subset(b,Crop_code %in% c(10,20,40,140,150,450,510,680,900))->b
+    factor(b$Crop_code)->b$Crop_code
+    levels(b$Crop_code)<-c("Wheat","Paddy","Maize","Bajra","Ragi","Gram","Red gram","Groundnut","Mustard")
+    b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+    boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
+  #+END_SRC
+
+
+*** Violin plots                                                    :slide:
+
+#+RESULTS: ccpc-crop-vio
+[[file:vioplotyield3.png]]
+
+#+NAME: ccpc-crop-vio
+#+BEGIN_SRC R :results output graphics :exports results :file vioplotyield3.png :width 400 :height 280  :type cairo :family Garamond
+  subset(ccpc,Year_Agriculture==2009)->b
+  subset(b,Crop_code %in% c(10,20,40,140,150,450,510,680,900))->b
+  factor(b$Crop_code)->b$Crop_code
+  levels(b$Crop_code)<-c("Wheat","Paddy","Maize","Bajra","Ragi","Gram","Red gram","Groundnut","Mustard")
+  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
+
+  vioplot(b$yield[b$Crop_code=="Wheat"],b$yield[b$Crop_code=="Paddy"],b$yield[b$Crop_code=="Maize"])
+  #+END_SRC
+
+
+
+* Workshop plan
+** Introduction to R
+** Data Tables
+** ggplot2
+
+* Datasets
+
+** Census
+** PLFS/Chandan's data
+** Suicides
+** CPI
+** Pulses
+
