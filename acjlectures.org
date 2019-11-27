@@ -389,3 +389,4 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
+* Day 2
