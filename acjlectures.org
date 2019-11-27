@@ -1,6 +1,8 @@
 #+TITLE: Quantitative Methods
 #+PROPERTY: header-args:R :session acj :eval never-export
 #+STARTUP: hideall inlineimages hideblocks
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
 * Title slide                                                         :slide:
 #+BEGIN_SRC emacs-lisp-slide
@@ -12,7 +14,7 @@
 (org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
 #+END_SRC
 
-**  What do we aim to achieve in this course?                        :slide:
+** What do we aim to achieve in this course?                         :slide:
 **** Make friends with numbers
 **** Learn how to read numbers, how to present them, and how to write about them
 **** Learn how to use computers to work with numbers
@@ -212,7 +214,6 @@ $cov=\frac{standard.deviation}{mean}$
 | F   |    54500000 |    7382.4 |       0.16 |
 
 
-
 ** Graphical Displays of Quantitative Information: Common Pitfalls
 
 *** Common uses of statistical graphics                             :slide:
@@ -307,8 +308,8 @@ $cov=\frac{standard.deviation}{mean}$
 
 *** Boxplot                                                         :slide:
 
-**** Invented by John Tukey in 1970
-**** Many variations proposed since then, though the essential form and idea as remained intact.
++ Invented by John Tukey in 1970
++ Many variations proposed since then, though the essential form and idea as remained intact.
 
 
 *** Boxplot of wheat yields                                         :slide:
