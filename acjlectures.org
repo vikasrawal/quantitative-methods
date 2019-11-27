@@ -6,20 +6,6 @@
 #+BEGIN_SRC emacs-lisp-slide
 (org-show-animate '("Quantitative Methods, Part-II" "Vikas Rawal" "Prachi Bansal" "" "" ""))
 #+END_SRC
-* Lecture plan
-** Descriptive Statistics [1 day]
-*** Measures of central tendency
-*** Dispersion
-*** Making  Data Meaningful
-**** Cross-tabulations
-**** Data visualisation
-** Probability and Inference [2 days]
-*** Probability/Relevance to statistics
-*** Sampling distributions
-*** Hypothesis testing
-** Correlations and Regression [1 day]
-** All afternoons will be used for workshops
-
 * Day 1
 ** Title slide
 #+BEGIN_SRC emacs-lisp-slide
@@ -305,44 +291,6 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
 #+END_SRC
 
-*** Histogram with smaller bins
-
-#+RESULTS: ccpc-wheat-hist11
-[[file:productionhist11.png]]
-
-#+NAME: ccpc-wheat-hist11
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist11.png :width 400 :height 300  :type cairo :family Garamond
-  subset(ccpc,Year_Agriculture==2009)->b
-  subset(b,Crop_code %in% 20 )->b
-  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
-  hist(b$yield,main="Histogram of wheat yields",breaks=seq(0,25000,250),ylim=c(0,4000))
-#+END_SRC
-
-*** Histogram with smaller bins
-
-#+RESULTS: ccpc-wheat-hist12
-[[file:productionhist12.png]]
-
-#+NAME: ccpc-wheat-hist12
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist12.png :width 400 :height 300  :type cairo :family Garamond
-  subset(ccpc,Year_Agriculture==2009)->b
-  subset(b,Crop_code %in% 20 )->b
-  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
-  hist(b$yield,main="Histogram of wheat yields",breaks=seq(0,25000,250))
-#+END_SRC
-
-*** Histogram (absolute frequencies) with unequal bins distorts the shape
-#+NAME: ccpc-wheat-hist3
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist3.png :width 400 :height 300  :type cairo :family Garamond
-  subset(ccpc,Year_Agriculture==2009)->b
-  subset(b,Crop_code %in% 20 )->b
-  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
-  hist(b$yield,freq=T,main="Histogram of wheat yields",breaks=c(0,1000,1500,2000,2200,2500,3000,3200,3400,3800,4000,5000,10000,21000))
-#+END_SRC
-
-#+RESULTS: ccpc-wheat-hist3
-[[file:productionhist3.png]]
-
 *** Histogram with relative densities                               :slide:
 
 #+RESULTS: ccpc-wheat-hist2
@@ -357,37 +305,10 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
 #+END_SRC
 
-*** Histogram with relative densities
-
-#+RESULTS: ccpc-wheat-hist21
-[[file:productionhist21.png]]
-
-#+NAME: ccpc-wheat-hist21
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist21.png :width 400 :height 300  :type cairo :family Garamond
-  subset(ccpc,Year_Agriculture==2009)->b
-  subset(b,Crop_code %in% 20)->b
-  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
-  hist(b$yield,freq=F,main="Histogram of wheat yields",breaks=seq(0,25000,250),ylim=c(0,0.00040))
-#+END_SRC
-
-*** Histogram with unequal bins must use relative densities
-
-#+RESULTS: ccpc-wheat-hist4
-[[file:productionhist4.png]]
-
-#+NAME: ccpc-wheat-hist4
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist4.png :width 400 :height 300  :type cairo :family Garamond
-  subset(ccpc,Year_Agriculture==2009)->b
-  subset(b,Crop_code %in% 20 )->b
-  b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
-  hist(b$yield,freq=F,main="Histogram of wheat yields",breaks=c(0,1000,1500,2000,2200,2500,3000,3200,3400,3800,4000,5000,10000,21000),ylim=c(0,0.00040))
-#+END_SRC
-
 *** Boxplot                                                         :slide:
 
 **** Invented by John Tukey in 1970
 **** Many variations proposed since then, though the essential form and idea as remained intact.
-
 
 
 *** Boxplot of wheat yields                                         :slide:
@@ -447,7 +368,6 @@ $cov=\frac{standard.deviation}{mean}$
     boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
   #+END_SRC
 
-
 *** Violin plots                                                    :slide:
 
 #+RESULTS: ccpc-crop-vio
@@ -466,16 +386,5 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-* Workshop plan
-** Introduction to R
-** Data Tables
-** ggplot2
 
-* Datasets
-
-** Census
-** PLFS/Chandan's data
-** Suicides
-** CPI
-** Pulses
 
