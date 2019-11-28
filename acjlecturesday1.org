@@ -4,7 +4,7 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Title slide                                                         :slide:
+* Title slide                                        :slide:
 #+BEGIN_SRC emacs-lisp-slide
 (org-show-animate '("Quantitative Methods, Part-II" "Vikas Rawal" "Prachi Bansal" "" "" ""))
 #+END_SRC
@@ -14,24 +14,24 @@
 (org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
 #+END_SRC
 
-** What do we aim to achieve in this course?                         :slide:
+** What do we aim to achieve in this course?        :slide:
 **** Make friends with numbers
 **** Learn how to read numbers, how to present them, and how to write about them
 **** Learn how to use computers to work with numbers
-** Two Types of Statistics                                           :slide:
+** Two Types of Statistics                          :slide:
 *** Descriptive Statistics
 **** Use summaries of data for the entire population to describe a population
 **** Use summaries of sample data to describe a sample
 *** Inferential Statistics
 **** Use sample data to describe a population
-** Descriptive Statistics                                            :slide:
+** Descriptive Statistics                           :slide:
 
 + Frequency
 + Measures of central tendency
 + Summary positions
 + Measures of dispersion
 
-*** Frequency                                                       :slide:
+*** Frequency                                      :slide:
 
 #+NAME: worker-code0
 #+begin_src R :results value :export results :colnames yes :hline
@@ -93,13 +93,13 @@
 | M   |         7 |
 | F   |         9 |
 
-*** Measures of Central Tendency                                    :slide:
+*** Measures of Central Tendency                   :slide:
 
 #+NAME: mid-code
 #+begin_src R :results value :export results :colnames yes :hline
   workers[,.(mean_salary=round(mean(salary),1),
               median_salary=quantile(salary,prob=0.5))]
-#+end_src
+#+End_src
 
 #+RESULTS: mid-code
 | mean_salary | median_salary |
@@ -118,7 +118,7 @@
 | M   |    172428.6 |         50000 |
 | F   |     46333.3 |         45000 |
 
-*** Measures of Position                                            :slide:
+*** Measures of Position                           :slide:
 
 + First quartile
 + Second quartile (median)
@@ -128,9 +128,9 @@
 + Quintiles
 + Percentiles
 
-*** Measures of Dispersion                                          :slide:
+*** Measures of Dispersion                         :slide:
 
-**** Range and other measures based on positions                   :slide:
+**** Range and other measures based on positions  :slide:
 
 
 $range=max-min$
@@ -147,7 +147,7 @@ $range=max-min$
                 range=max(salary)-min(salary))]
 #+end_src
 
-**** Range and other measures based on positions                   :slide:
+**** Range and other measures based on positions  :slide:
 
 + Distance between any two positions (Deciles, Quintiles, Percentiles) can be used as a measure of dispersion.
 
@@ -216,35 +216,35 @@ $cov=\frac{standard.deviation}{mean}$
 
 ** Graphical Displays of Quantitative Information: Common Pitfalls
 
-*** Common uses of statistical graphics                             :slide:
+*** Common uses of statistical graphics            :slide:
 + To show trends over time
 + To show mid-point variations across categories
 + To show composition
 + (less commonly, though more usefully) to show/analyse dispersion
 
-*** Mis-representation                                              :slide:
+*** Mis-representation                             :slide:
 
 #+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
 [[file:graphics/tufte-insanity.png]]
 
-*** Mis-representation                                              :slide:
+*** Mis-representation                             :slide:
 
 #+CAPTION: Another example borrowed from Tufte
 [[file:graphics/tufte-fuel.png]]
 
-*** Mis-representation                                              :slide:
+*** Mis-representation                             :slide:
 
 #+CAPTION: Tufte's graph on fuel economy of cars
 #+attr_html: :width 400px
 [[file:graphics/tufte-fuel2.png]]
 
-*** Mis-representation                                              :slide:
+*** Mis-representation                             :slide:
 
 #+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
 #+attr_html: :width 300px
 [[file:graphics/nobel-wrong.png]]
 
-*** Mis-representation                                              :slide:
+*** Mis-representation                             :slide:
 
 #+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
 #+attr_html: :width 300px
@@ -266,7 +266,7 @@ $cov=\frac{standard.deviation}{mean}$
 
 [[file:graphics/piketty2_c.png]]
 
-*** The problem multiplied with the coming in of spreadsheets       :slide:
+*** The problem multiplied with the coming in of spreadsheets :slide:
 
 #+ATTR_html: :width 300px
 [[file:graphics/chart1.png]]
@@ -277,8 +277,8 @@ $cov=\frac{standard.deviation}{mean}$
 #+ATTR_html: :width 300px
 [[file:graphics/chart3.png]]
 
-** Graphical Displays of Quantitative Information: Dispersion        :slide:
-*** Histogram                                                       :slide:
+** Graphical Displays of Quantitative Information: Dispersion :slide:
+*** Histogram                                      :slide:
 
 #+RESULTS: ccpc-wheat-hist1
 #+attr_html: :width 800px
@@ -292,7 +292,7 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
 #+END_SRC
 
-*** Histogram with relative densities                               :slide:
+*** Histogram with relative densities              :slide:
 
 #+RESULTS: ccpc-wheat-hist2
 #+attr_html: :width 600px
@@ -306,13 +306,13 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
 #+END_SRC
 
-*** Boxplot                                                         :slide:
+*** Boxplot                                        :slide:
 
 + Invented by John Tukey in 1970
 + Many variations proposed since then, though the essential form and idea as remained intact.
 
 
-*** Boxplot of wheat yields                                         :slide:
+*** Boxplot of wheat yields                        :slide:
 
 #+RESULTS: ccpc-wheat-box1
 [[file:boxplotyield1.png]]
@@ -325,7 +325,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Boxplot of wheat yields")
 #+END_SRC
 
-*** Violin plots                                                    :slide:
+*** Violin plots                                   :slide:
 
 #+RESULTS: ccpc-wheat-vio1
 [[file:vioplotyield1.png]]
@@ -342,7 +342,7 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-*** Boxplots: Useful to identify extreme values                     :slide:
+*** Boxplots: Useful to identify extreme values    :slide:
 
 
 #+RESULTS: ccpc-wheat-box2
@@ -355,7 +355,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Magnified tail of the boxplot",ylim=c(7000,25000))
 #+END_SRC
 
-*** Boxplots: Useful for comparisons across categories              :slide:
+*** Boxplots: Useful for comparisons across categories :slide:
 
 #+RESULTS: ccpc-crop-box3
 [[file:boxplotyield3.png]]
@@ -369,7 +369,7 @@ $cov=\frac{standard.deviation}{mean}$
     boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
   #+END_SRC
 
-*** Violin plots                                                    :slide:
+*** Violin plots                                   :slide:
 
 #+RESULTS: ccpc-crop-vio
 [[file:vioplotyield3.png]]
@@ -389,4 +389,3 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-* Day 2
