@@ -23,6 +23,7 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 ** Unemployment and Fiscal Austerity                                 :slide:
 
 #+name: fxed-krugman-graph
+#+attr_html: :width 1200px
 #+RESULTS: graph2
 [[file:krugman2.png]]
 
