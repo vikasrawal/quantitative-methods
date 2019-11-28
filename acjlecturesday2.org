@@ -13,6 +13,8 @@
 
 #+attr_html: :width 1200px
 [[file:krugman1.png]]
+Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
+
 
 ** Paul Krugman on Fiscal Austerity                                  :slide:
 
