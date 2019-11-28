@@ -28,17 +28,18 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 [[file:krugman2.png]]
 
 #+NAME: graph2
-#+BEGIN_SRC R :results output graphics :exports results :file krugman2.png :width 3774 :height 3774  :res 600
+#+BEGIN_SRC R :results output graphics :exports results :file krugman2.png :width 2000 :height 2000  :res 300
   library(data.table)
   library(ggplot2)
   fread("~/ssercloud/acj2018/krugmandata.csv")->a
-  as.Date(a$date,format=c("%m/%d/%Y"))->a$date
-  factor(ifelse(a$date<"10-01-01","2000-2009","2010-2018"))->a$Period
+  as.Date(a$date,format=c("%m/%d/%y"))->a$date
+  factor(ifelse(a$date<"2010-01-01","2000-2009","2010-2018"))->a$Period
   melt(a,id=c("date","Period"),m=c("impact","unemployment"))->t
   levels(t$variable)<-c("Fiscal stimulus","Unemployment rate")
   ggplot(t,aes(x=date,y=value,group=variable,colour=Period))->p
   p+geom_line(size=1.2)+facet_wrap(~variable,scales="free_y",ncol=1)->p
-  p+scale_y_continuous("Per cent")+theme(legend.position="bottom")
+  p+scale_y_continuous("Per cent")+theme(legend.position="bottom")->p
+  p+scale_x_date("Year/Month",date_labels = "%Y")
 #+END_SRC
 
 
