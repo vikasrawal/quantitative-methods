@@ -22,9 +22,6 @@
 
 #+RESULTS: graph
 [[file:krugman2.png]]
-#+attr_html :width 500px
-[[file:krugman2.png]]
-
 
 #+NAME: graph
 #+BEGIN_SRC R :results output graphics :exports results :file krugman2.png :width 3774 :height 3774  :res 600
