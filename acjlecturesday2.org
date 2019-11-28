@@ -9,18 +9,20 @@
 #+END_SRC
 * Day 2
 
-** Paul Krugman on Fiscal Austerity                                  :slide:
+** Paul Krugman on Fiscal Austerity
+
+*** What does this graph show?                                  :slide:
 
 #+attr_html: :width 1200px
 [[file:krugman1.png]]
 Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
 
 
-** Paul Krugman on Fiscal Austerity                                  :slide:
+*** What did Paul Krugman say?                   :slide:
 
 "Here’s what fiscal policy should do: it should support demand when the economy is weak, and it should pull that support back when the economy is strong. As John Maynard Keynes said, “The boom, not the slump, is the right time for austerity.” And up until 2010 the U.S. more or less followed that prescription. Since then, however, fiscal policy has become perverse: first austerity despite high unemployment, now expansion despite low unemployment.
 
-** Unemployment and Fiscal Austerity                                 :slide:
+*** How could we better show the relationship between unemployment and fiscal austerity :slide:
 
 #+name: fixed-krugman-graph
 #+attr_html: :width 1200px
