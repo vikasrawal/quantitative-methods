@@ -12,7 +12,7 @@
 
 ** Sampling Distributions                                            :slide:
 
-#+RESULTS: sampling2
+# #+RESULTS: sampling2
 [[file:bsample2.png]]
 
 #+NAME: sampling2
