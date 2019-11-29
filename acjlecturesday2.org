@@ -240,7 +240,7 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 #+end_src
 
 
-*** But in real situations we do not know the population variance!  :slide:
+*** Distribution of sample mean with unknown population variance :slide:
 
 #+RESULTS: sampling5
 [[file:bsample5.png]]
