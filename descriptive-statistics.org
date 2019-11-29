@@ -1,4 +1,4 @@
-#+TITLE: Quantitative Methods
+#+TITLE: Descriptive Statistics
 #+PROPERTY: header-args:R :session acj :eval never-export
 #+STARTUP: hideall inlineimages hideblocks
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
@@ -6,23 +6,8 @@
 
 * Title slide                                        :slide:
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods, Part-II" "Descriptive Statistics" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+(org-show-animate '("Quantitative Methods" "Descriptive Statistics" "Vikas Rawal" "Prachi Bansal" "" "" ""))
 #+END_SRC
-* Title slide
-#+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
-#+END_SRC
-
-* What do we aim to achieve in this course?                           :slide:
-*** Make friends with numbers
-*** Learn how to read numbers, how to present them, and how to write about them
-*** Learn how to use computers to work with numbers
-* Two Types of Statistics                                             :slide:
-** Descriptive Statistics
-*** Use summaries of data for the entire population to describe a population
-*** Use summaries of sample data to describe a sample
-** Inferential Statistics
-*** Use sample data to describe a population
 * Descriptive Statistics                                              :slide:
 
 + Frequency
@@ -212,70 +197,6 @@ $cov=\frac{standard.deviation}{mean}$
 | M   | 89680952381 |  299467.8 |       1.74 |
 | F   |    54500000 |    7382.4 |       0.16 |
 
-
-* Graphical Displays of Quantitative Information: Common Pitfalls
-
-** Common uses of statistical graphics                               :slide:
-+ To show trends over time
-+ To show mid-point variations across categories
-+ To show composition
-+ (less commonly, though more usefully) to show/analyse dispersion
-
-** Mis-representation                                                :slide:
-
-#+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
-[[file:graphics/tufte-insanity.png]]
-
-** Mis-representation                                                :slide:
-
-#+CAPTION: Another example borrowed from Tufte
-[[file:graphics/tufte-fuel.png]]
-
-** Mis-representation                                                :slide:
-
-#+CAPTION: Tufte's graph on fuel economy of cars
-#+attr_html: :width 400px
-[[file:graphics/tufte-fuel2.png]]
-
-** Mis-representation                                                :slide:
-
-#+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
-#+attr_html: :width 300px
-[[file:graphics/nobel-wrong.png]]
-
-** Mis-representation                                                :slide:
-
-#+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
-#+attr_html: :width 300px
-[[file:graphics/nobel-right.png]]
-
-** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
-
-[[file:graphics/piketty1_o.png]]
-
-** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
-
-[[file:graphics/piketty1_c.png]]
-
-** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
-
-[[file:graphics/piketty2_o.png]]
-
-** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
-
-[[file:graphics/piketty2_c.png]]
-
-** The problem multiplied with the coming in of spreadsheets         :slide:
-
-#+ATTR_html: :width 300px
-[[file:graphics/chart1.png]]
-
-#+ATTR_html: :width 300px
-[[file:graphics/chart2.png]]
-
-#+ATTR_html: :width 300px
-[[file:graphics/chart3.png]]
-
 * Graphical Displays of Quantitative Information: Dispersion          :slide:
 ** Histogram                                                         :slide:
 
@@ -386,7 +307,68 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
+* Graphical Displays of Quantitative Information: Common Pitfalls
 
+** Common uses of statistical graphics                               :slide:
++ To show trends over time
++ To show mid-point variations across categories
++ To show composition
++ (less commonly, though more usefully) to show/analyse dispersion
+
+** Mis-representation                                                :slide:
+
+#+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
+[[file:graphics/tufte-insanity.png]]
+
+** Mis-representation                                                :slide:
+
+#+CAPTION: Another example borrowed from Tufte
+[[file:graphics/tufte-fuel.png]]
+
+** Mis-representation                                                :slide:
+
+#+CAPTION: Tufte's graph on fuel economy of cars
+#+attr_html: :width 400px
+[[file:graphics/tufte-fuel2.png]]
+
+** Mis-representation                                                :slide:
+
+#+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
+#+attr_html: :width 300px
+[[file:graphics/nobel-wrong.png]]
+
+** Mis-representation                                                :slide:
+
+#+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
+#+attr_html: :width 300px
+[[file:graphics/nobel-right.png]]
+
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty1_o.png]]
+
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty1_c.png]]
+
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty2_o.png]]
+
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+
+[[file:graphics/piketty2_c.png]]
+
+** The problem multiplied with the coming in of spreadsheets         :slide:
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart1.png]]
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart2.png]]
+
+#+ATTR_html: :width 300px
+[[file:graphics/chart3.png]]
 
 * Paul Krugman on Fiscal Austerity
 
