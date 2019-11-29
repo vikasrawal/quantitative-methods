@@ -5,48 +5,12 @@
 
 * Title slide                                                         :slide:
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods, Part-II" "Vikas Rawal" "Prachi Bansal" "" "" ""))
-#+END_SRC
-* Day 2
-
-** Paul Krugman on Fiscal Austerity
-
-*** What does this graph show?                                  :slide:
-
-#+attr_html: :width 1200px
-[[file:krugman1.png]]
-Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
-
-
-*** What did Paul Krugman say?                   :slide:
-
-"Here’s what fiscal policy should do: it should support demand when the economy is weak, and it should pull that support back when the economy is strong. As John Maynard Keynes said, “The boom, not the slump, is the right time for austerity.” And up until 2010 the U.S. more or less followed that prescription. Since then, however, fiscal policy has become perverse: first austerity despite high unemployment, now expansion despite low unemployment.
-
-*** How could we better show the relationship between unemployment and fiscal austerity :slide:
-
-#+name: fixed-krugman-graph
-#+attr_html: :width 1200px
-[[file:krugman2.png]]
-
-#+NAME: graph2
-#+BEGIN_SRC R :results output graphics :exports results :file krugman2.png :width 2000 :height 2000  :res 300
-  library(data.table)
-  library(ggplot2)
-  fread("~/ssercloud/acj2018/krugmandata.csv")->a
-  as.Date(a$date,format=c("%m/%d/%y"))->a$date
-  factor(ifelse(a$date<"2010-01-01","2000-2009","2010-2018"))->a$Period
-  melt(a,id=c("date","Period"),m=c("impact","unemployment"))->t
-  levels(t$variable)<-c("Fiscal stimulus","Unemployment rate")
-  ggplot(t,aes(x=date,y=value,group=variable,colour=Period))->p
-  p+geom_line(size=1.2)+facet_wrap(~variable,scales="free_y",ncol=1)->p
-  p+scale_y_continuous("Per cent")+theme(legend.position="bottom")->p
-  p+scale_x_date("Year/Month",date_labels = "%Y")
+(org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "Prachi Bansal" "" "" ""))
 #+END_SRC
 
+* Sampling Distributions
 
-** Sampling Distributions
-
-*** Sampling Distributions                                          :slide:
+** Sampling Distributions                                            :slide:
 
 #+RESULTS: sampling2
 [[file:bsample2.png]]
@@ -144,7 +108,7 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
     p
 #+end_src
 
-*** Sampling Distributions                                          :slide:
+** Sampling Distributions                                            :slide:
 
 + $Standard.error = \frac{\sigma}{\sqrt{mean}}$
 
@@ -160,8 +124,8 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 
 
 
-** Introduction to Hypothesis Testing
-*** Transforming the Distribution to Standard Normal                :slide:
+* Introduction to Hypothesis Testing
+** Transforming the Distribution to Standard Normal                  :slide:
 
 #+RESULTS: sampling3
 [[file:bsample3.png]]
@@ -240,7 +204,7 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 #+end_src
 
 
-*** Distribution of sample mean with unknown population variance :slide:
+** Distribution of sample mean with unknown population variance      :slide:
 
 #+RESULTS: sampling5
 [[file:bsample5.png]]
@@ -314,7 +278,7 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 #+end_src
 
 
-*** Introduction to the t distribution                             :ignore:
+** Introduction to the t distribution                               :ignore:
 
 #+RESULTS: sampling4
 [[file:bsample4.png]]

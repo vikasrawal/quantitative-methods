@@ -6,32 +6,31 @@
 
 * Title slide                                        :slide:
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods, Part-II" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+(org-show-animate '("Quantitative Methods, Part-II" "Descriptive Statistics" "Vikas Rawal" "Prachi Bansal" "" "" ""))
 #+END_SRC
-* Day 1
-** Title slide
+* Title slide
 #+BEGIN_SRC emacs-lisp-slide
 (org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
 #+END_SRC
 
-** What do we aim to achieve in this course?        :slide:
-**** Make friends with numbers
-**** Learn how to read numbers, how to present them, and how to write about them
-**** Learn how to use computers to work with numbers
-** Two Types of Statistics                          :slide:
-*** Descriptive Statistics
-**** Use summaries of data for the entire population to describe a population
-**** Use summaries of sample data to describe a sample
-*** Inferential Statistics
-**** Use sample data to describe a population
-** Descriptive Statistics                           :slide:
+* What do we aim to achieve in this course?                           :slide:
+*** Make friends with numbers
+*** Learn how to read numbers, how to present them, and how to write about them
+*** Learn how to use computers to work with numbers
+* Two Types of Statistics                                             :slide:
+** Descriptive Statistics
+*** Use summaries of data for the entire population to describe a population
+*** Use summaries of sample data to describe a sample
+** Inferential Statistics
+*** Use sample data to describe a population
+* Descriptive Statistics                                              :slide:
 
 + Frequency
 + Measures of central tendency
 + Summary positions
 + Measures of dispersion
 
-*** Frequency                                      :slide:
+** Frequency                                                         :slide:
 
 #+NAME: worker-code0
 #+begin_src R :results value :export results :colnames yes :hline
@@ -93,7 +92,7 @@
 | M   |         7 |
 | F   |         9 |
 
-*** Measures of Central Tendency                   :slide:
+** Measures of Central Tendency                                      :slide:
 
 #+NAME: mid-code
 #+begin_src R :results value :export results :colnames yes :hline
@@ -118,7 +117,7 @@
 | M   |    172428.6 |         50000 |
 | F   |     46333.3 |         45000 |
 
-*** Measures of Position                           :slide:
+** Measures of Position                                              :slide:
 
 + First quartile
 + Second quartile (median)
@@ -128,9 +127,9 @@
 + Quintiles
 + Percentiles
 
-*** Measures of Dispersion                         :slide:
+** Measures of Dispersion                                            :slide:
 
-**** Range and other measures based on positions  :slide:
+*** Range and other measures based on positions                     :slide:
 
 
 $range=max-min$
@@ -147,7 +146,7 @@ $range=max-min$
                 range=max(salary)-min(salary))]
 #+end_src
 
-**** Range and other measures based on positions  :slide:
+*** Range and other measures based on positions                     :slide:
 
 + Distance between any two positions (Deciles, Quintiles, Percentiles) can be used as a measure of dispersion.
 
@@ -179,7 +178,7 @@ $inter.quartile.range=Q3-Q1$
 
 
 
-**** Variance, Standard Deviation and Coefficient of Variation
+*** Variance, Standard Deviation and Coefficient of Variation
 
 $variance=\frac{1}{n} \times \sum(x_{i}-x)^{2}$
 
@@ -214,59 +213,59 @@ $cov=\frac{standard.deviation}{mean}$
 | F   |    54500000 |    7382.4 |       0.16 |
 
 
-** Graphical Displays of Quantitative Information: Common Pitfalls
+* Graphical Displays of Quantitative Information: Common Pitfalls
 
-*** Common uses of statistical graphics            :slide:
+** Common uses of statistical graphics                               :slide:
 + To show trends over time
 + To show mid-point variations across categories
 + To show composition
 + (less commonly, though more usefully) to show/analyse dispersion
 
-*** Mis-representation                             :slide:
+** Mis-representation                                                :slide:
 
 #+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
 [[file:graphics/tufte-insanity.png]]
 
-*** Mis-representation                             :slide:
+** Mis-representation                                                :slide:
 
 #+CAPTION: Another example borrowed from Tufte
 [[file:graphics/tufte-fuel.png]]
 
-*** Mis-representation                             :slide:
+** Mis-representation                                                :slide:
 
 #+CAPTION: Tufte's graph on fuel economy of cars
 #+attr_html: :width 400px
 [[file:graphics/tufte-fuel2.png]]
 
-*** Mis-representation                             :slide:
+** Mis-representation                                                :slide:
 
 #+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
 #+attr_html: :width 300px
 [[file:graphics/nobel-wrong.png]]
 
-*** Mis-representation                             :slide:
+** Mis-representation                                                :slide:
 
 #+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
 #+attr_html: :width 300px
 [[file:graphics/nobel-right.png]]
 
-*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
 [[file:graphics/piketty1_o.png]]
 
-*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
 [[file:graphics/piketty1_c.png]]
 
-*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
 [[file:graphics/piketty2_o.png]]
 
-*** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
+** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
 [[file:graphics/piketty2_c.png]]
 
-*** The problem multiplied with the coming in of spreadsheets :slide:
+** The problem multiplied with the coming in of spreadsheets         :slide:
 
 #+ATTR_html: :width 300px
 [[file:graphics/chart1.png]]
@@ -277,8 +276,8 @@ $cov=\frac{standard.deviation}{mean}$
 #+ATTR_html: :width 300px
 [[file:graphics/chart3.png]]
 
-** Graphical Displays of Quantitative Information: Dispersion :slide:
-*** Histogram                                      :slide:
+* Graphical Displays of Quantitative Information: Dispersion          :slide:
+** Histogram                                                         :slide:
 
 #+RESULTS: ccpc-wheat-hist1
 #+attr_html: :width 800px
@@ -292,7 +291,7 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
 #+END_SRC
 
-*** Histogram with relative densities              :slide:
+** Histogram with relative densities                                 :slide:
 
 #+RESULTS: ccpc-wheat-hist2
 #+attr_html: :width 600px
@@ -306,13 +305,13 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
 #+END_SRC
 
-*** Boxplot                                        :slide:
+** Boxplot                                                           :slide:
 
 + Invented by John Tukey in 1970
 + Many variations proposed since then, though the essential form and idea as remained intact.
 
 
-*** Boxplot of wheat yields                        :slide:
+** Boxplot of wheat yields                                           :slide:
 
 #+RESULTS: ccpc-wheat-box1
 [[file:boxplotyield1.png]]
@@ -325,7 +324,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Boxplot of wheat yields")
 #+END_SRC
 
-*** Violin plots                                   :slide:
+** Violin plots                                                      :slide:
 
 #+RESULTS: ccpc-wheat-vio1
 [[file:vioplotyield1.png]]
@@ -342,7 +341,7 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-*** Boxplots: Useful to identify extreme values    :slide:
+** Boxplots: Useful to identify extreme values                       :slide:
 
 
 #+RESULTS: ccpc-wheat-box2
@@ -355,7 +354,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Magnified tail of the boxplot",ylim=c(7000,25000))
 #+END_SRC
 
-*** Boxplots: Useful for comparisons across categories :slide:
+** Boxplots: Useful for comparisons across categories                :slide:
 
 #+RESULTS: ccpc-crop-box3
 [[file:boxplotyield3.png]]
@@ -369,7 +368,7 @@ $cov=\frac{standard.deviation}{mean}$
     boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
   #+END_SRC
 
-*** Violin plots                                   :slide:
+** Violin plots                                                      :slide:
 
 #+RESULTS: ccpc-crop-vio
 [[file:vioplotyield3.png]]
@@ -388,4 +387,38 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
+
+* Paul Krugman on Fiscal Austerity
+
+** What does this graph show?                                        :slide:
+
+#+attr_html: :width 1200px
+[[file:krugman1.png]]
+Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
+
+
+** What did Paul Krugman say?                                        :slide:
+
+"Here’s what fiscal policy should do: it should support demand when the economy is weak, and it should pull that support back when the economy is strong. As John Maynard Keynes said, “The boom, not the slump, is the right time for austerity.” And up until 2010 the U.S. more or less followed that prescription. Since then, however, fiscal policy has become perverse: first austerity despite high unemployment, now expansion despite low unemployment.
+
+** How could we better show the relationship between unemployment and fiscal austerity :slide:
+
+#+name: fixed-krugman-graph
+#+attr_html: :width 1200px
+[[file:krugman2.png]]
+
+#+NAME: graph2
+#+BEGIN_SRC R :results output graphics :exports results :file krugman2.png :width 2000 :height 2000  :res 300
+  library(data.table)
+  library(ggplot2)
+  fread("~/ssercloud/acj2018/krugmandata.csv")->a
+  as.Date(a$date,format=c("%m/%d/%y"))->a$date
+  factor(ifelse(a$date<"2010-01-01","2000-2009","2010-2018"))->a$Period
+  melt(a,id=c("date","Period"),m=c("impact","unemployment"))->t
+  levels(t$variable)<-c("Fiscal stimulus","Unemployment rate")
+  ggplot(t,aes(x=date,y=value,group=variable,colour=Period))->p
+  p+geom_line(size=1.2)+facet_wrap(~variable,scales="free_y",ncol=1)->p
+  p+scale_y_continuous("Per cent")+theme(legend.position="bottom")->p
+  p+scale_x_date("Year/Month",date_labels = "%Y")
+#+END_SRC
 
