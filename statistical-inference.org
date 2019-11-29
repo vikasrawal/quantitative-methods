@@ -278,12 +278,13 @@
   p
 #+end_src
 
-
-
-
-** t-test for means                                                  :slide:
+** T Test for means                                                  :slide:
 
 ***  Testing if the mean is different from a specified value (say zero) :slide:
+
+$H_{0}: \mu = 0$
+
+$H_{a}: \mu \neq 0$
 
 #+name: ttest1
 #+begin_src R :results output list org
@@ -309,7 +310,12 @@
 
 *** Testing equality of means                                       :slide:
 
-+ Here we test if the mean wages of men and women are equal.
+
+
+$H_{0}: \mu_{women} = \mu_{men}$
+
+$H_{a}: \mu_{women} \neq \mu_{men}$
+
 
 #+name: ttest2
 #+begin_src R :results output list org
@@ -332,9 +338,14 @@
 #+end_src
 
 
-** Testing for equality of proportions                               :slide:
+** Z Test for equality of proportions                                :slide:
 
-+ Here we test if proportion of person who have passed high school is different for men and women
+
+
+$H_{0}: p_{women} = p_{men}$
+
+$H_{a}: p_{women} \neq p_{men}$
+
 
 #+name: proptest1
 #+begin_src R :results output list org
@@ -359,5 +370,36 @@
 - sample estimates:
 - prop 1     prop 2 
 - 0.09245986 0.25348253
+#+end_src
+
+
+** F Test for equality of variances                                  :slide:
+
+
+
+$H_{0}: \sigma_{women}^{2} = \sigma_{men}^{2}$
+
+$H_{a}: \sigma_{women}^{2} \neq \sigma_{men}^{2}$
+
+
+#+name: ftest1
+#+begin_src R :results output list org
+  subset(worker,sex!=3)->t9
+  factor(t9$sex)->t9$sex
+  var.test(wage~sex,data=t9)
+#+end_src
+
+#+RESULTS: ftest1
+#+begin_src org
+- F test to compare two variances
+- data:  wage by sex
+- F = 1.8352, num df = 30652, denom df = 6975, p-value <
+- 0.00000000000000022
+- alternative hypothesis: true ratio of variances is not equal to 1
+- 95 percent confidence interval:
+- 1.768532 1.903506
+- sample estimates:
+- ratio of variances 
+- 1.835174
 #+end_src
 
