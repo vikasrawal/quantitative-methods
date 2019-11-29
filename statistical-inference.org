@@ -279,3 +279,50 @@
 #+end_src
 
 
+
+
+** t-test
+
+#+name: ttest1
+#+begin_src R :results output
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  t.test(worker$wage)
+#+end_src
+
+#+RESULTS: ttest1
+#+begin_example
+
+	One Sample t-test
+
+data:  worker$wage
+t = 432.99, df = 37634, p-value < 0.00000000000000022
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 289.7136 292.3484
+sample estimates:
+mean of x 
+  291.031
+#+end_example
+
+#+name: ttest2
+#+begin_src R :results output
+  subset(worker,sex!=3)->t9
+  factor(t9$sex)->t9$sex
+  t.test(wage~sex,data=t9)
+#+end_src
+
+#+RESULTS: ttest2
+#+begin_example
+
+	Welch Two Sample t-test
+
+data:  wage by sex
+t = 79.02, df = 13483, p-value < 0.00000000000000022
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 104.6563 109.9805
+sample estimates:
+mean in group 1 mean in group 2 
+       310.8974        203.5790
+#+end_example
