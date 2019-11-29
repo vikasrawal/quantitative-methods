@@ -283,27 +283,28 @@
 
 ** t-test
 
+
+
 #+name: ttest1
-#+begin_src R :results output
+#+begin_src R :results output list org
   readRDS("plfsdata/plfsacjdata.rds")->worker
   worker$standardwage->worker$wage
-  t.test(worker$wage)
+  worker->t9
+  t.test(t9$wage)
 #+end_src
 
 #+RESULTS: ttest1
-#+begin_example
-
-	One Sample t-test
-
-data:  worker$wage
-t = 432.99, df = 37634, p-value < 0.00000000000000022
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 289.7136 292.3484
-sample estimates:
-mean of x 
-  291.031
-#+end_example
+#+begin_src org
+- One Sample t-test
+- data:  t9$wage
+- t = 432.99, df = 37634, p-value < 0.00000000000000022
+- alternative hypothesis: true mean is not equal to 0
+- 95 percent confidence interval:
+- 289.7136 292.3484
+- sample estimates:
+- mean of x 
+- 291.031
+#+end_src
 
 #+name: ttest2
 #+begin_src R :results output
@@ -325,4 +326,31 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean in group 1 mean in group 2 
        310.8974        203.5790
+#+end_example
+
+
+#+name: proptest1
+#+begin_src R :results output
+  subset(worker,sex!=3)->t9
+  as.numeric(t9$gen_edu_level)->t9$gen_edu_level
+  factor(t9$sex)->t9$sex
+  t9[gen_edu_level>=8,.(schooled=length(fsu)),.(sex)]->a
+  t9[,.(all=length(fsu)),.(sex)]->b
+  prop.test(a$schooled,b$all)
+#+end_src
+
+#+CAPTION: Results of test for equality of proportions of men and women who have passed secondary school
+#+RESULTS: proptest1
+#+begin_example
+
+	2-sample test for equality of proportions with continuity correction
+
+data:  a$schooled out of b$all
+X-squared = 847.73, df = 1, p-value < 0.00000000000000022
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.1694726 -0.1525728
+sample estimates:
+    prop 1     prop 2 
+0.09245986 0.25348253
 #+end_example
