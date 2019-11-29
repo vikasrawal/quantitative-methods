@@ -283,16 +283,6 @@
 
 ** t-test
 
-
-
-#+name: ttest1
-#+begin_src R :results output list org
-  readRDS("plfsdata/plfsacjdata.rds")->worker
-  worker$standardwage->worker$wage
-  worker->t9
-  t.test(t9$wage)
-#+end_src
-
 #+RESULTS: ttest1
 #+begin_src org
 - One Sample t-test
@@ -305,6 +295,15 @@
 - mean of x 
 - 291.031
 #+end_src
+
+#+name: ttest1
+#+begin_src R :results output list org
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  worker->t9
+  t.test(t9$wage)
+#+end_src
+
 
 #+name: ttest2
 #+begin_src R :results output
