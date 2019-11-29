@@ -44,7 +44,9 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
 #+END_SRC
 
 
-** Sampling Distributions                                            :slide:
+** Sampling Distributions
+
+*** Sampling Distributions                                          :slide:
 
 #+RESULTS: sampling2
 [[file:bsample2.png]]
@@ -141,5 +143,240 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
     p+annotate("text",x=450,y=0.039,label=lab,colour="pink")->p
     p
 #+end_src
+
+*** Sampling Distributions                                          :slide:
+
++ $Standard.error = \frac{\sigma}{\sqrt{mean}}$
+
+
+
+| Standard deviation of population ($\sigma$) | 130 |
+|          Standard errors of samples of size |     |
+|                                           5 |  58 |
+|                                          20 |  29 |
+|                                          50 |  18 |
+|                                         200 |   9 |
+
+
+
+
+** Introduction to Hypothesis Testing
+*** Transforming the Distribution to Standard Normal                :slide:
+
+#+RESULTS: sampling3
+[[file:bsample3.png]]
+
+#+NAME: sampling3
+#+BEGIN_SRC R :results output graphics :exports results :file bsample3.png :width 2500 :height 2000  :res 300
+  library(data.table)
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  c(1:nrow(worker))->worker$SamplingFrameOrder
+  worker[sex!=3,]->worker
+  library(ggplot2)
+
+  worker->t9
+  (t9$wage-mean(t9$wage))/sqrt(var(t9$wage))->t9$wage
+  ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
+  p+scale_y_continuous(limits=c(0,0.75))->p
+  p+scale_x_continuous(limits=c(-15,15)
+                      ,breaks=c(-5,0,mean(worker$wage),10,15))->p
+  p+theme_bw()->p
+  p
+
+
+
+  sample(1:nrow(worker),5, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t1
+    for (i in c(1:9999)) {
+        sample(1:nrow(worker),5, replace=FALSE)->a1
+        worker[a1,]->s1
+        c(t1,mean(s1$wage))->t1
+    }
+
+  data.frame(sno=c(1:10000),meancol=(t1-mean(worker$wage))/sqrt(var(t1)))->t1
+  p+geom_density(data=t1,aes(meancol),colour="blue",size=1)-> p
+  p
+
+  sample(1:nrow(worker),20, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t0
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),20, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t0,mean(s1$wage))->t0
+  }
+
+  data.frame(sno=c(1:10000),meancol=(t0-mean(worker$wage))/sqrt(var(t0)))->t0
+  p+geom_density(data=t0,aes(meancol),colour="darkolivegreen",size=1)-> p
+  p
+
+  sample(1:nrow(worker),50, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),50, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t,mean(s1$wage))->t
+  }
+
+  data.frame(sno=c(1:10000),meancol=(t-mean(worker$wage))/sqrt(var(t)))->t
+  p+geom_density(data=t,aes(meancol),colour="red",size=1)-> p
+  p
+
+  sample(1:nrow(worker),200, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t4
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),200, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t4,mean(s1$wage))->t4
+  }
+
+  data.frame(sno=c(1:10000),meancol=(t4-mean(worker$wage))/sqrt(var(t4)))->t4
+  p+geom_density(data=t4,aes(meancol),colour="pink",size=1)-> p
+  p
+#+end_src
+
+
+*** But in real situations we do not know the population variance!  :slide:
+
+#+RESULTS: sampling5
+[[file:bsample5.png]]
+
+#+NAME: sampling5
+#+BEGIN_SRC R :results output graphics :exports results :file bsample5.png :width 3500 :height 2000  :res 300
+  library(data.table)
+  library(ggplot2)
+  options(scipen=9999)
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  c(1:nrow(worker))->worker$SamplingFrameOrder
+  worker[sex!=3,]->worker
+
+  worker->t9
+  (t9$wage-mean(t9$wage))/sqrt(var(t9$wage))->t9$wage
+  ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
+  p+scale_y_continuous(limits=c(0,0.75))->p
+  p+scale_x_continuous(limits=c(-15,15)
+                      ,breaks=c(-15,0,round(mean(worker$wage)),15))->p
+  p+theme_bw()->p
+  p
+
+  data.frame(sno=c(),meancol=c(),sterr=c())->t4
+  samplesize=10
+  for (i in c(1:20000)) {
+    sample(1:nrow(worker),samplesize, replace=FALSE)->a1
+    worker[a1,]->s1
+    rbind(t4,data.frame(
+               sno=i,
+               meancol=mean(s1$wage),
+               sterr=sqrt(var(s1$wage))/sqrt(samplesize)
+             )
+          )->t4
+  }
+
+  (t4$meancol)/t4$sterr->t4$teststat
+  (t4$meancol)/sqrt(var(t4$meancol))->t4$teststat2
+  data.frame(modelt=rt(200000,samplesize-1,ncp=mean(t4$teststat)),modelnorm=rnorm(200000,mean=mean(t4$teststat2)))->m
+
+  var(t4$teststat)
+  var(m$modelt)
+  var(m$modelnorm)
+  var(t4$teststat2)
+  mean(t4$teststat)
+  mean(m$modelt)
+  mean(m$modelnorm)
+  mean(t4$teststat2)
+
+  ggplot()->p
+  p+geom_density(data=t4,aes(teststat2),colour="red",size=1)-> p
+  p+geom_density(data=m,aes(modelnorm),colour="black",size=1)->p
+  p+geom_density(data=t4,aes(teststat),colour="blue",size=1)-> p
+  p+geom_density(data=m,aes(modelt),colour="darkolivegreen",size=1)->p
+  p+annotate("text",x=-30,y=0.42,
+             label=paste("Normal distribution, with standard deviation",round(sqrt(var(m$modelnorm)),2)),
+             colour="black",hjust=0)->p
+  p+annotate("text",x=-30,y=0.40,
+             label=paste("Statistic with known population variance, standard error =",
+                         round(sqrt(var(t4$teststat2)),2)),
+             colour="red",hjust=0)->p
+  p+annotate("text",x=-30,y=0.38,
+             label=paste("t distribution, with standard deviation =",round(sqrt(var(m$modelt)),2)),
+             colour="darkolivegreen",hjust=0)->p
+  p+annotate("text",x=-30,y=0.36,
+             label=paste("Statistic with unknown population variance, standard error =",
+                         round(sqrt(var(t4$teststat)),2)),
+             colour="blue",hjust=0)->p
+  p+scale_x_continuous(limits=c(-30,30))+theme_bw()->p
+  p
+#+end_src
+
+
+*** Introduction to the t distribution                             :ignore:
+
+#+RESULTS: sampling4
+[[file:bsample4.png]]
+
+#+NAME: sampling4
+#+BEGIN_SRC R :results output graphics :exports results :file bsample4.png :width 2500 :height 2000  :res 300
+  library(data.table)
+  library(ggplot2)
+  options(scipen=9999)
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  c(1:nrow(worker))->worker$SamplingFrameOrder
+  worker[sex!=3,]->worker
+
+  worker->t9
+  (t9$wage-mean(t9$wage))/sqrt(var(t9$wage))->t9$wage
+  ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
+  p+scale_y_continuous(limits=c(0,0.75))->p
+  p+scale_x_continuous(limits=c(-15,15)
+                      ,breaks=c(-15,0,round(mean(worker$wage)),15))->p
+  p+theme_bw()->p
+  p
+
+  data.frame(sno=c(),meancol=c(),sterr=c())->t4
+  samplesize=50
+  for (i in c(1:20000)) {
+    sample(1:nrow(worker),samplesize, replace=FALSE)->a1
+    worker[a1,]->s1
+    rbind(t4,data.frame(
+               sno=i,
+               meancol=mean(s1$wage),
+               sterr=sqrt(var(s1$wage))/sqrt(samplesize)))->t4
+  }
+
+  (t4$meancol-mean(t4$meancol))/t4$sterr->t4$teststat
+  (t4$meancol-mean(t4$meancol))/sqrt(var(t4$meancol))->t4$teststat2
+  data.frame(modelt=rt(20000,29))->m
+
+  var(t4$teststat)
+  var(m$modelt)
+  var(t4$teststat2)
+
+  ggplot()->p
+  p+geom_density(data=t4,aes(teststat),colour="blue",size=1)-> p
+  p+geom_density(data=m,aes(modelt),colour="darkolivegreen",size=1)->p
+  p+geom_density(data=t4,aes(teststat2),colour="red",size=1)-> p
+  p+annotate("text",x=3,y=0.4,
+             label=paste("Var of statistic with unknown variance:",
+                         round(var(t4$teststat),2)),
+             colour="blue")->p
+  p+annotate("text",x=3,y=0.39,
+             label=paste("Var of statistic with known variance:",
+                         round(var(t4$teststat2),2)),
+             colour="red")->p
+  p+annotate("text",x=3,y=0.38,
+             label=paste("Var of t-distribution:",round(var(m$modelt),2)),
+             colour="darkolivegreen")->p
+  p
+
+
+#+end_src
+
+
 
 
