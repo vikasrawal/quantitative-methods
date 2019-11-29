@@ -110,7 +110,7 @@
 
 ** Sampling Distributions                                            :slide:
 
-+ $Standard.error = \frac{\sigma}{\sqrt{mean}}$
++ $Standard.error = \frac{\sigma}{\sqrt{n}}$
 
 
 |                                    Variable | Value |
@@ -121,7 +121,6 @@
 |                                          20 |    29 |
 |                                          50 |    18 |
 |                                         200 |     9 |
-
 
 
 
