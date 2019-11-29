@@ -16,7 +16,7 @@
 [[file:bsample2.png]]
 
 #+NAME: sampling2
-#+BEGIN_SRC R :results output graphics :exports results :file bsample2.png :width 4500 :height 3000  :res 600
+#+BEGIN_SRC R :results output graphics :exports results :file bsample2.png :width 2500 :height 1500  :res 300
     library(data.table)
     readRDS("plfsdata/plfsacjdata.rds")->worker
     worker$standardwage->worker$wage
