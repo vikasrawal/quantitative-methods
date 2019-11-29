@@ -49,7 +49,7 @@
     paste("Sample size 5: mean = ",
           round(mean(t1$meancol)),
           "; stdev = ",
-          round(sqrt(var(t1$meancol))),sep="")->lab
+          round(sd(t1$meancol)),sep="")->lab
     p+annotate("text",x=450,y=0.030,label=lab,colour="blue")->p
     p
 
@@ -67,7 +67,7 @@
     paste("Sample size 20: mean = ",
           round(mean(t0$meancol)),
           "; stdev = ",
-          round(sqrt(var(t0$meancol))),sep="")->lab
+          round(sd(t0$meancol)),sep="")->lab
     p+annotate("text",x=450,y=0.033,label=lab,colour="darkolivegreen")->p
     p
 
@@ -85,7 +85,7 @@
     paste("Sample size 50: mean = ",
           round(mean(t$meancol)),
           "; stdev = ",
-          round(sqrt(var(t$meancol))),sep="")->lab
+          round(sd(t$meancol)),sep="")->lab
     p+annotate("text",x=450,y=0.036,label=lab,colour="red")->p
     p
 
@@ -103,7 +103,7 @@
     paste("Sample size 200: mean = ",
           round(mean(t4$meancol)),
           "; stdev = ",
-          round(sqrt(var(t4$meancol))),sep="")->lab
+          round(sd(t4$meancol)),sep="")->lab
     p+annotate("text",x=450,y=0.039,label=lab,colour="pink")->p
     p
 #+end_src
@@ -113,13 +113,14 @@
 + $Standard.error = \frac{\sigma}{\sqrt{mean}}$
 
 
-
-| Standard deviation of population ($\sigma$) | 130 |
-|          Standard errors of samples of size |     |
-|                                           5 |  58 |
-|                                          20 |  29 |
-|                                          50 |  18 |
-|                                         200 |   9 |
+|                                    Variable | Value |
+|---------------------------------------------+-------|
+| Standard deviation of population ($\sigma$) |   130 |
+|          Standard errors of samples of size |       |
+|                                           5 |    58 |
+|                                          20 |    29 |
+|                                          50 |    18 |
+|                                         200 |     9 |
 
 
 
@@ -140,7 +141,7 @@
   library(ggplot2)
 
   worker->t9
-  (t9$wage-mean(t9$wage))/sqrt(var(t9$wage))->t9$wage
+  (t9$wage-mean(t9$wage))/sd(t9$wage)->t9$wage
   ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
   p+scale_y_continuous(limits=c(0,0.75))->p
   p+scale_x_continuous(limits=c(-15,15)
@@ -159,7 +160,7 @@
         c(t1,mean(s1$wage))->t1
     }
 
-  data.frame(sno=c(1:10000),meancol=(t1-mean(worker$wage))/sqrt(var(t1)))->t1
+  data.frame(sno=c(1:10000),meancol=(t1-mean(worker$wage))/sd(t1))->t1
   p+geom_density(data=t1,aes(meancol),colour="blue",size=1)-> p
   p
 
@@ -172,7 +173,7 @@
     c(t0,mean(s1$wage))->t0
   }
 
-  data.frame(sno=c(1:10000),meancol=(t0-mean(worker$wage))/sqrt(var(t0)))->t0
+  data.frame(sno=c(1:10000),meancol=(t0-mean(worker$wage))/sd(t0))->t0
   p+geom_density(data=t0,aes(meancol),colour="darkolivegreen",size=1)-> p
   p
 
@@ -185,7 +186,7 @@
     c(t,mean(s1$wage))->t
   }
 
-  data.frame(sno=c(1:10000),meancol=(t-mean(worker$wage))/sqrt(var(t)))->t
+  data.frame(sno=c(1:10000),meancol=(t-mean(worker$wage))/sd(t))->t
   p+geom_density(data=t,aes(meancol),colour="red",size=1)-> p
   p
 
@@ -198,7 +199,7 @@
     c(t4,mean(s1$wage))->t4
   }
 
-  data.frame(sno=c(1:10000),meancol=(t4-mean(worker$wage))/sqrt(var(t4)))->t4
+  data.frame(sno=c(1:10000),meancol=(t4-mean(worker$wage))/sd(t4))->t4
   p+geom_density(data=t4,aes(meancol),colour="pink",size=1)-> p
   p
 #+end_src
@@ -220,7 +221,7 @@
   worker[sex!=3,]->worker
 
   worker->t9
-  (t9$wage-mean(t9$wage))/sqrt(var(t9$wage))->t9$wage
+  (t9$wage-mean(t9$wage))/sd(t9$wage)->t9$wage
   ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
   p+scale_y_continuous(limits=c(0,0.75))->p
   p+scale_x_continuous(limits=c(-15,15)
@@ -236,19 +237,19 @@
     rbind(t4,data.frame(
                sno=i,
                meancol=mean(s1$wage),
-               sterr=sqrt(var(s1$wage))/sqrt(samplesize)
+               sterr=sd(s1$wage)/sqrt(samplesize)
              )
           )->t4
   }
 
   (t4$meancol)/t4$sterr->t4$teststat
-  (t4$meancol)/sqrt(var(t4$meancol))->t4$teststat2
+  (t4$meancol)/sd(t4$meancol)->t4$teststat2
   data.frame(modelt=rt(200000,samplesize-1,ncp=mean(t4$teststat)),modelnorm=rnorm(200000,mean=mean(t4$teststat2)))->m
 
-  var(t4$teststat)
-  var(m$modelt)
-  var(m$modelnorm)
-  var(t4$teststat2)
+  sd(t4$teststat)
+  sd(m$modelt)
+  sd(m$modelnorm)
+  sd(t4$teststat2)
   mean(t4$teststat)
   mean(m$modelt)
   mean(m$modelnorm)
@@ -260,18 +261,18 @@
   p+geom_density(data=t4,aes(teststat),colour="blue",size=1)-> p
   p+geom_density(data=m,aes(modelt),colour="darkolivegreen",size=1)->p
   p+annotate("text",x=-30,y=0.42,
-             label=paste("Normal distribution, with standard deviation",round(sqrt(var(m$modelnorm)),2)),
+             label=paste("Normal distribution, with standard deviation",round(sd(m$modelnorm),2)),
              colour="black",hjust=0)->p
   p+annotate("text",x=-30,y=0.40,
              label=paste("Statistic with known population variance, standard error =",
-                         round(sqrt(var(t4$teststat2)),2)),
+                         round(sd(t4$teststat2),2)),
              colour="red",hjust=0)->p
   p+annotate("text",x=-30,y=0.38,
-             label=paste("t distribution, with standard deviation =",round(sqrt(var(m$modelt)),2)),
+             label=paste("t distribution, with standard deviation =",round(sd(m$modelt),2)),
              colour="darkolivegreen",hjust=0)->p
   p+annotate("text",x=-30,y=0.36,
              label=paste("Statistic with unknown population variance, standard error =",
-                         round(sqrt(var(t4$teststat)),2)),
+                         round(sd(t4$teststat),2)),
              colour="blue",hjust=0)->p
   p+scale_x_continuous(limits=c(-30,30))+theme_bw()->p
   p
