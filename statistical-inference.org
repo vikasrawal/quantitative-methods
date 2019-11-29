@@ -281,7 +281,17 @@
 
 
 
-** t-test
+** t-test for means                                                  :slide:
+
+***  Testing if the mean is different from a specified value (say zero) :slide:
+
+#+name: ttest1
+#+begin_src R :results output list org
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  worker->t9
+  t.test(t9$wage)
+#+end_src
 
 #+RESULTS: ttest1
 #+begin_src org
@@ -296,40 +306,38 @@
 - 291.031
 #+end_src
 
-#+name: ttest1
-#+begin_src R :results output list org
-  readRDS("plfsdata/plfsacjdata.rds")->worker
-  worker$standardwage->worker$wage
-  worker->t9
-  t.test(t9$wage)
-#+end_src
 
+*** Testing equality of means                                       :slide:
+
++ Here we test if the mean wages of men and women are equal.
 
 #+name: ttest2
-#+begin_src R :results output
+#+begin_src R :results output list org
   subset(worker,sex!=3)->t9
   factor(t9$sex)->t9$sex
   t.test(wage~sex,data=t9)
 #+end_src
 
 #+RESULTS: ttest2
-#+begin_example
+#+begin_src org
+- Welch Two Sample t-test
+- data:  wage by sex
+- t = 79.02, df = 13483, p-value < 0.00000000000000022
+- alternative hypothesis: true difference in means is not equal to 0
+- 95 percent confidence interval:
+- 104.6563 109.9805
+- sample estimates:
+- mean in group 1 mean in group 2 
+- 310.8974        203.5790
+#+end_src
 
-	Welch Two Sample t-test
 
-data:  wage by sex
-t = 79.02, df = 13483, p-value < 0.00000000000000022
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- 104.6563 109.9805
-sample estimates:
-mean in group 1 mean in group 2 
-       310.8974        203.5790
-#+end_example
+** Testing for equality of proportions                               :slide:
 
++ Here we test if proportion of person who have passed high school is different for men and women
 
 #+name: proptest1
-#+begin_src R :results output
+#+begin_src R :results output list org
   subset(worker,sex!=3)->t9
   as.numeric(t9$gen_edu_level)->t9$gen_edu_level
   factor(t9$sex)->t9$sex
@@ -338,18 +346,18 @@ mean in group 1 mean in group 2
   prop.test(a$schooled,b$all)
 #+end_src
 
+
 #+CAPTION: Results of test for equality of proportions of men and women who have passed secondary school
 #+RESULTS: proptest1
-#+begin_example
+#+begin_src org
+- 2-sample test for equality of proportions with continuity correction
+- data:  a$schooled out of b$all
+- X-squared = 847.73, df = 1, p-value < 0.00000000000000022
+- alternative hypothesis: two.sided
+- 95 percent confidence interval:
+- -0.1694726 -0.1525728
+- sample estimates:
+- prop 1     prop 2 
+- 0.09245986 0.25348253
+#+end_src
 
-	2-sample test for equality of proportions with continuity correction
-
-data:  a$schooled out of b$all
-X-squared = 847.73, df = 1, p-value < 0.00000000000000022
-alternative hypothesis: two.sided
-95 percent confidence interval:
- -0.1694726 -0.1525728
-sample estimates:
-    prop 1     prop 2 
-0.09245986 0.25348253
-#+end_example
