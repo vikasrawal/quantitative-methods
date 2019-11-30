@@ -325,15 +325,9 @@ $H_{a}: \mu_{women} \neq \mu_{men}$
 
 #+RESULTS: ttest2
 #+begin_src org
-- Welch Two Sample t-test
-- data:  wage by sex
-- t = 79.02, df = 13483, p-value < 0.00000000000000022
-- alternative hypothesis: true difference in means is not equal to 0
-- 95 percent confidence interval:
-- 104.6563 109.9805
-- sample estimates:
-- mean in group 1 mean in group 2 
-- 310.8974        203.5790
+- Error in subset(worker, sex != 3) : object 'worker' not found
+- Error in factor(t9$sex) : object 't9' not found
+- Error in eval(m$data, parent.frame()) : object 't9' not found
 #+end_src
 
 
