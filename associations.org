@@ -42,7 +42,7 @@
 
 
 #+NAME: sassociation2
-#+BEGIN_SRC R :results output org
+#+BEGIN_SRC R :results output
   lm(wage~sex+age+years_edu,
      data=worker)->t
   summary(t)
@@ -59,7 +59,7 @@
 #+end_src
 
 #+RESULTS: sassociation2
-#+begin_src org
+#+begin_example
 
 Call:
 lm(formula = wage ~ sex
@@ -211,7 +211,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual standard error: 94.36 on 37572 degrees of freedom
 Multiple R-squared:  0.4771,	Adjusted R-squared:  0.4763 
 F-statistic:   553 on 62 and 37572 DF,  p-value: < 0.00000000000000022
-#+end_src
+#+end_example
 
 #+NAME: sassociation3
 #+BEGIN_SRC R :results output graphics :file bsample2.png :width 2500 :height 1500  :res 300
