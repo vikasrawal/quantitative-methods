@@ -5,7 +5,7 @@
 
 
 #+NAME: sassociation1
-#+BEGIN_SRC R :results output raw
+#+BEGIN_SRC R :results output raw list
   library(data.table)
   readRDS("plfsdata/plfsacjdata.rds")->worker
   worker$standardwage->worker$wage
@@ -19,29 +19,24 @@
 #+end_src
 
 #+RESULTS: sassociation1
-
-	Pearson's product-moment correlation
-
-data:  worker$wage and worker$years_edu
-t = 35.998, df = 37633, p-value < 0.00000000000000022
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.1726625 0.1921962
-sample estimates:
-      cor 
-0.1824473
-
-	Pearson's product-moment correlation
-
-data:  worker$wage and worker$age
-t = 9.3777, df = 37633, p-value < 0.00000000000000022
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.03819950 0.05835859
-sample estimates:
-       cor 
-0.04828396
-
+- Pearson's product-moment correlation
+- data:  worker$wage and worker$years_edu
+- t = 35.998, df = 37633, p-value < 0.00000000000000022
+- alternative hypothesis: true correlation is not equal to 0
+- 95 percent confidence interval:
+- 0.1726625 0.1921962
+- sample estimates:
+- cor 
+- 0.1824473
+- Pearson's product-moment correlation
+- data:  worker$wage and worker$age
+- t = 9.3777, df = 37633, p-value < 0.00000000000000022
+- alternative hypothesis: true correlation is not equal to 0
+- 95 percent confidence interval:
+- 0.03819950 0.05835859
+- sample estimates:
+- cor 
+- 0.04828396
 
 #+NAME: sassociation2
 #+BEGIN_SRC R :results output raw
