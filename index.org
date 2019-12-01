@@ -14,12 +14,12 @@
 #+END_SRC
 
 * What do we aim to achieve in this course?                           :slide:
-*** Make friends with numbers
-*** Learn how to read numbers, how to present them, and how to write about them
-*** Learn how to use computers to work with numbers
++ Make friends with numbers
++ Learn how to read numbers, how to present them, and how to write about them
++ Learn how to use computers to work with numbers
 * Two Types of Statistics                                             :slide:
 ** Descriptive Statistics
-*** Use summaries of data for the entire population to describe a population
-*** Use summaries of sample data to describe a sample
++ Use summaries of data for the entire population to describe a population
++ Use summaries of sample data to describe a sample
 ** Inferential Statistics
-*** Use sample data to describe a population
++ Use sample data to describe a population
