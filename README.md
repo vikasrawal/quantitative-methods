@@ -21,6 +21,7 @@ The files do not contain my explanations of these results, and most of what I sp
 
 + Vikas Rawal: The SSER R-Manual
 + https://www.r-project.org
++ Introduction to data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
 + Hadley Wikham: "ggplot2: Elegant Graphics for Data Analysis"
 + Winston Chang: R Graphics Cookbook
 
