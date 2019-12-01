@@ -13,7 +13,7 @@ The files do not contain my explanations of these results, and most of what I sp
 
 ### For statistics
 
-+ Making Data Meaningful: https://www.unece.org/stats/documents/writing/
++ Making Data Meaningful (Part I and II): https://www.unece.org/stats/documents/writing/
 + Alan Agresti: "Statistics: The Art and Science of Learning from Data"
 + [Optional] Alan Agresti: "Statistical Methods for the Social Sciences"
 
